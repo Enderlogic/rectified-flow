@@ -1,0 +1,9 @@
+checkpoint_path: './checkpoints/v1.1-cfg/miniunet_49.pth' #模型路径
+base_channels: 16 #MiniUnet的基础通道数，默认值为16
+step: 50  # 采样步数（Euler方法的迭代次数） 10步效果就很好 1步效果不好
+num_imgs: 5 #推理一次生成图片数量，默认值为5
+y: None #条件生成中的条件，可以为数据标签（每一个标签是一个类别int型）或text文本（下一版本支持）,维度为[B]或[B, L]，其中B要么与num_imgs相等，要么为1（所有图像依照同一个条件生成)
+cfg_scale: 7.0 #Classifier-free Guidance的缩放因子，默认值为7.0，y如果是None，无论这个值是几都是无条件生成。这个值越大，多样性下降，但生成图像更符合条件要求。这个值越小，多样性增加，但生成图像可能不符合条件要求
+save_path: './results' #保存路径，默认值为'./results'
+save_noise_path: None #保存噪声路径，默认值为None
+device: 'mps' #推理设备

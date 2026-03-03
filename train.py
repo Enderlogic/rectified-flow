@@ -57,11 +57,7 @@ def train(config: str):
     # 把PIL转为tensor
     transform = Compose([ToTensor()])  # 变换成tensor + 变为[0, 1]
 
-    dataset = MNIST(
-        root='./data',
-        train=True,  # 6w
-        download=True,
-        transform=transform)
+    dataset = MNIST(root='./data', train=True, download=True, transform=transform)
     dataloader = DataLoader(dataset, batch_size=batch_size, shuffle=True)
 
     # 模型加载
@@ -87,17 +83,13 @@ def train(config: str):
     for epoch in range(epochs):
         for batch, data in enumerate(dataloader):
             x_1, y = data  # x_1原始图像，y是标签，用于CFG
-            # 均匀采样[0, 1]的时间t randn 标准正态分布
-            t = torch.rand(x_1.size(0))
+            # 先把数据放到device上，避免flow在CPU上生成后再搬运
+            x_1 = x_1.to(device)
+            # 均匀采样[0, 1]的时间t
+            t = torch.rand(x_1.size(0), device=device)
 
             # 生成flow（实际上是一个点）
             x_t, x_0 = rf.create_flow(x_1, t)
-
-            # 4090 大概占用显存3G
-            x_t = x_t.to(device)
-            x_0 = x_0.to(device)
-            x_1 = x_1.to(device)
-            t = t.to(device)
 
             optimizer.zero_grad()
 

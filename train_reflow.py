@@ -2,12 +2,13 @@ import torch
 import os
 import yaml
 from datasets import ReflowDataset
-from torchvision.transforms import ToTensor, Compose, Normalize
+from torchvision.transforms import ToTensor, Compose
 from torch.utils.data import DataLoader
 from model import MiniUnet
 from torch.optim import Adam, AdamW
 from torch.optim.lr_scheduler import StepLR
 from rectified_flow import RectifiedFlow
+
 
 # 1. reflow的训练要从上一个1-rectified flow(v1.1)模型的权重作为预训练权重
 
