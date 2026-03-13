@@ -1,4 +1,4 @@
-base_channels: 16  # base_channels大一些有好处
+base_channels: 64  # base_channels大一些有好处
 epochs: 50 # 训练多少个epoch
 batch_size: 16  # batch_size小一些
 lr_adjust_epoch: 25 # 学习率调整的epoch，降为原有的10%
